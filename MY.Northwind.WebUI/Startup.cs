@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MY.Northwind.Bal.Abstract;
@@ -8,6 +9,7 @@ using MY.Northwind.Bal.Concrete;
 using MY.Northwind.Dal.Abstract;
 using MY.Northwind.Dal.Concrete.EntityFramework;
 using Microsoft.EntityFrameworkCore;
+using MY.Northwind.WebUI.Entity;
 using MY.Northwind.WebUI.Middlewares;
 using MY.Northwind.WebUI.Services;
 
@@ -38,6 +40,16 @@ namespace MY.Northwind.WebUI
             services.AddSingleton<ICartSessionService, CartSessionService>();
             services.AddSingleton<ICartService, CartService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddDbContext<CustomIdentityDbContext>(options => options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=Northwind;Trusted_Connection=true"));
+            services.AddIdentity<CustomIdentityUser, CustomIdentityRole>()
+                .AddEntityFrameworkStores<CustomIdentityDbContext>()
+                .AddDefaultTokenProviders();
+            
+               // CustomIdentityUser ve customidentityrole ı kullanarak konfigürasyon yap.
+
+
+
+
             services.AddSession();
             services.AddDistributedMemoryCache();
             services.AddMvc();
@@ -52,6 +64,7 @@ namespace MY.Northwind.WebUI
             }
             app.UseFileServer();
             app.UseBowerComponents(env.ContentRootPath);
+            app.UseIdentity();
             app.UseSession();
             app.UseMvcWithDefaultRoute();
 
