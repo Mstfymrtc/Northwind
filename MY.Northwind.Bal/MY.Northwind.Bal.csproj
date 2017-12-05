@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\MY.Northwind.Core\MY.Northwind.Core.csproj" />
     <ProjectReference Include="..\MY.Northwind.Dal\MY.Northwind.Dal.csproj" />
     <ProjectReference Include="..\MY.Northwind.Entity\MY.Northwind.Entity.csproj" />

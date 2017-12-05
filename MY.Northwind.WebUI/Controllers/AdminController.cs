@@ -12,7 +12,7 @@ using MY.Northwind.WebUI.Models;
 
 namespace MY.Northwind.WebUI.Controllers
 {
-    [Authorize]
+    [Authorize(Roles ="Admin")]
     public class AdminController : Controller
     {
 

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MY.Northwind.Bal.Abstract;
@@ -66,8 +67,14 @@ namespace MY.Northwind.WebUI
             app.UseBowerComponents(env.ContentRootPath);
             app.UseIdentity();
             app.UseSession();
-            app.UseMvcWithDefaultRoute();
+            app.UseMvc(ConfigureRoutes);
 
+        }
+
+        private void ConfigureRoutes(IRouteBuilder routeBuilder)
+        {
+
+            routeBuilder.MapRoute("Default", "{controller=Product}/{Action=Index}/{id?}");
         }
     }
 }

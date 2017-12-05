@@ -87,9 +87,30 @@ namespace MY.Northwind.WebUI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login()
+        public ActionResult  Login(LoginViewModel loginViewModel)
         {
-            
+            if (ModelState.IsValid)
+            {
+                var result = _signInManager.PasswordSignInAsync(loginViewModel.UserName, loginViewModel.Password,
+                    loginViewModel.RememberMe, false).Result;
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
+                ModelState.AddModelError("","Invalid login!");
+            }
+            return View(loginViewModel);
+        }
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        public ActionResult Logoff()
+        {
+
+            _signInManager.SignOutAsync().Wait();
+            return RedirectToAction("Login");
+
         }
     }
 }
