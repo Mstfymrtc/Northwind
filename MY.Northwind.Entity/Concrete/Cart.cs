@@ -2,7 +2,7 @@
 using System.Linq;
 
 namespace MY.Northwind.Entity.Concrete
-{
+{//
     public class Cart
     {
         public Cart()
